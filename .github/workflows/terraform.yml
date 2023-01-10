@@ -42,6 +42,17 @@ jobs:
         if: github.event_name == 'pull_request'
         run: terraform plan -no-color -input=false
         continue-on-error: true
+        
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Run Bridgecrew 
+        id: Bridgecrew
+        uses: bridgecrewio/bridgecrew-action@master 
+        env:
+          PRISMA_API_URL: https://api4.prismacloud.io
+        with:
+          api-key: ${{ secrets.BC_API_KEY }}
 
       - uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
