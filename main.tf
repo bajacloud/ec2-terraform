@@ -56,6 +56,9 @@ resource "aws_instance" "web" {
               echo "Hello World" > /var/www/html/index.html
               systemctl restart apache2
               EOF
+  metadata_options {
+    http_tokens = "required"
+  }
 }
 
 resource "aws_security_group" "web-sg" {
